@@ -4,7 +4,7 @@ const mtz = require('moment-timezone');
 
 async function run() {
 var manaus = mtz.tz(new Date(), "America/Manaus");
-const folder = 'capturas/' + manaus.format().substring(0,13);
+const folder = 'capturas/palert/' + manaus.format().substring(0,13);
 
 if(!fs.existsSync(folder)){
     fs.mkdirSync(folder);
