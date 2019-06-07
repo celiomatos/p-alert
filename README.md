@@ -55,11 +55,11 @@ docker run -d -p 9000:9000 --name my_minio
 docker exec -it ID /bin/sh
 mv /data/certs /data/palert
 
-docker build -f Dockerfile -t mycron
+docker build -f Dockerfile -t mycron .
 
 docker run -v my-vol:/app/capturas -d mycron
 
 docker exec -it ID /bin/sh
 crontab -e
-5 * * * * cd cd /app && node index.js
-10 16 * * * cd cd /app && node index.js
+5	*	*	*	*	cd cd /app && node index.js
+5	16	*	*	*	cd cd /app && node index.js
