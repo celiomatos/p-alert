@@ -63,3 +63,10 @@ docker exec -it ID /bin/sh
 crontab -e
 5	*	*	*	*	cd cd /app && node index.js
 5	16	*	*	*	cd cd /app && node index.js
+
+
+
+### Backup Restore #####
+cd path_do_host_destino
+docker save -o backup-name.tar imagem-name
+docker load -i backup-name.tar

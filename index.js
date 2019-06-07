@@ -26,15 +26,23 @@ const data = await page.$$eval('#search a', tds => tds.map((td) => {
   return td.href;
 }));
 
+var sites = "Links\n";
 for(let i = 0; i < data.length; i++){
 	const noticia = await data[i];	
-	console.log(noticia);
+	console.log(noticia);	
 	try {
 	    await page.goto(noticia);
 	    const title = await page.title();
         await page.screenshot({ path: folder + '/' + title + '.png', fullPage: true });
+		sites += noticia + "\n";
 	} catch(err){}
 }
+
+var stream = await fs.createWriteStream(folder + "/sites.txt");
+stream.once('open', function(fd) {
+    stream.write(sites);  
+    stream.end();
+});
 
 await browser.close();
 }
