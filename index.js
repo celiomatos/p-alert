@@ -28,13 +28,18 @@ const data = await page.$$eval('#search a', tds => tds.map((td) => {
 
 var sites = "Links\n";
 for(let i = 0; i < data.length; i++){
-	const noticia = await data[i];	
-	console.log(noticia);	
+	const noticia = await data[i];		
 	try {
-	    await page.goto(noticia);
-	    const title = await page.title();
-        await page.screenshot({ path: folder + '/' + title + '.png', fullPage: true });
-		sites += noticia + "\n";
+		if(!(noticia.includes("google.com") || noticia.includes("youtube.com") || noticia.includes("webcache.googleusercontent.com"))){	  
+			await page.goto(noticia);
+			console.log(">>>> " + noticia);
+	        const title = await page.title();
+			const content = await page.content();
+			if(!content.includes("2013-2019")){
+                await page.screenshot({ path: folder + '/' + title + '.png', fullPage: true });
+		        sites += noticia + "\n";
+			}
+		}
 	} catch(err){}
 }
 
