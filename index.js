@@ -10,7 +10,11 @@ if(!fs.existsSync(folder)){
     fs.mkdirSync(folder);
 }
 
-const browser = await puppeteer.launch();
+const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+  }
+);
 const page = await browser.newPage();
 await page.setViewport({width: 1280, height: 800});
 
