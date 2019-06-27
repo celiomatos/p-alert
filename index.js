@@ -6,10 +6,6 @@ async function run() {
 var manaus = mtz.tz(new Date(), "America/Manaus");
 const folder = 'capturas/palert/' + manaus.format().substring(0,13);
 
-if(!fs.existsSync(folder)){
-    fs.mkdirSync(folder);
-}
-
 const browser = await puppeteer.launch({
     executablePath: '/usr/bin/chromium-browser',
     args: ['--no-sandbox', '--disable-dev-shm-usage'],
@@ -40,6 +36,11 @@ for(let i = 0; i < data.length; i++){
 	        const title = await page.title();
 			const content = await page.content();
 			if(content.toLowerCase().includes("dermilson")){
+				
+                if(!existeNoticia && !fs.existsSync(folder)){
+                    fs.mkdirSync(folder);
+                }
+				
 				existeNoticia = true;
                 await page.screenshot({ path: folder + '/' + title + '.png', fullPage: true });
 		        sites += noticia + "\n";
