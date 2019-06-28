@@ -48,6 +48,7 @@ for(let i = 0; i < data.length; i++){
 		}
 	} catch(err){
 		console.log("Error in site >>>> " + noticia);
+                 await page.close();
 	}
 }
 
